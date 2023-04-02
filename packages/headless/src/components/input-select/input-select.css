@@ -1,0 +1,21 @@
+input[type='radio'],
+input[type='checkbox'] {
+  appearance: none;
+}
+
+input[type='text'] {
+  width: 100%;
+}
+
+[role='combobox'] {
+  display: flex;
+  align-items: center;
+}
+
+[role='combobox'] label {
+  cursor: pointer;
+}
+
+fieldset li:focus-within {
+  outline: 0.15em solid;
+}
