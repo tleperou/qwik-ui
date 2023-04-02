@@ -42,7 +42,14 @@ export const Menu = component$<Props>(({ onClose$ }) => {
       path: `/docs/${appState.theme.toLowerCase()}/navigation-bar`,
     },
     { label: 'Drawer', path: `/docs/${appState.theme.toLowerCase()}/drawer` },
-    { label: 'Input Phone', path: `/docs/headless/input-phone` },
+    {
+      label: 'Input Phone',
+      path: `/docs/${appState.theme.toLowerCase()}/input-phone`,
+    },
+    {
+      label: 'Input Select',
+      path: `/docs/${appState.theme.toLowerCase()}/input-select`,
+    },
     { label: 'Rating', path: `/docs/${appState.theme.toLowerCase()}/rating` },
     { label: 'Radio', path: `/docs/${appState.theme.toLowerCase()}/radio` },
     { label: 'Popover', path: `/docs/${appState.theme.toLowerCase()}/popover` },
