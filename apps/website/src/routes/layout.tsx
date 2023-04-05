@@ -26,15 +26,5 @@ export default component$(() => {
         : 'DAISY';
   });
 
-  return (
-    <>
-      <main>
-        <Header />
-        <div class="relative px-4 pt-24 sm:px-6 lg:px-8">
-          <Slot />
-        </div>
-      </main>
-      <footer></footer>
-    </>
-  );
+  return <Slot />;
 });
