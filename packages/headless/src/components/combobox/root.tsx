@@ -1,7 +1,38 @@
-import { component$, Slot, QwikIntrinsicElements } from '@builder.io/qwik';
+import {
+  component$,
+  Slot,
+  QwikIntrinsicElements,
+  createContextId,
+  useContextProvider,
+  useOn,
+  $,
+} from '@builder.io/qwik';
+import { Context } from './use/use-combobox';
+import { LogicalKeys, useLogicalKeys } from '@qwik-ui/shared';
 
-type Props = QwikIntrinsicElements['div'];
+export const rootContext = createContextId<Context>('combobox-root');
 
-export const Root = component$<Props>(() => {
-  return <Slot />;
+type Props = QwikIntrinsicElements['div'] & {
+  use: Context;
+};
+
+export const Root = component$<Props>(({ use, ...props }: Props) => {
+  useContextProvider(rootContext, use);
+
+  console.log({ use });
+
+  useLogicalKeys({ ref: use.ref, dir: use.dir });
+
+  useOn(
+    LogicalKeys.ArrowInlineEnd,
+    $(() => {
+      console.log('next input');
+    })
+  );
+
+  return (
+    <div {...props} ref={use.ref}>
+      <Slot />
+    </div>
+  );
 });

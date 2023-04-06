@@ -1,29 +1,19 @@
-import {
-  createContextId,
-  useContextProvider,
-  useId,
-  useSignal,
-  useStore,
-} from '@builder.io/qwik';
+import { type Signal, useId, useSignal, useStore } from '@builder.io/qwik';
 
 export type Context = {
+  ref?: Signal<HTMLElement | undefined>;
+  dir?: 'ltr' | 'rtl';
   id: string;
   activedescendant: string | undefined;
   expanded: boolean;
 };
 
-export const context = createContextId<Context>('combobox-root');
-
-export const useCombobox = () => {
-  const service: Context = useStore({
-    activedescendant: '',
-    expanded: false,
-    id: useId(),
+export const useCombobox = (params: Partial<Context> | void): Context => {
+  return useStore<Context>({
+    ref: params?.ref || useSignal<HTMLElement>(),
+    dir: params?.dir || 'ltr',
+    activedescendant: params?.activedescendant || '',
+    expanded: params?.expanded || false,
+    id: params?.id || useId(),
   });
-  useContextProvider(context, service);
-
-  return {
-    ref: useSignal<HTMLElement>(),
-    ...service,
-  };
 };

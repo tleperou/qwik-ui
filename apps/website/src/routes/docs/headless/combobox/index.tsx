@@ -3,43 +3,49 @@ import { Combobox } from '@qwik-ui/headless';
 import styles from './combobox.css?inline';
 
 const {
+  useCombobox,
   Root,
   Trigger,
   Popover,
   Autocomplete,
   Groups,
   Group,
+  Icons: { ChevronDown, ChevronUp },
   Options,
   Option,
-  useCombobox,
 } = Combobox;
 
 export default component$(() => {
   const { scopeId } = useStylesScoped$(styles);
-  const { ref } = useCombobox();
+
+  const combobox1 = useCombobox();
+  const combobox2 = useCombobox({ dir: 'rtl' });
+
   return (
     <>
       <p>This is the documentation for the Combobox</p>
 
-      <h2>Input Combobox</h2>
-
       {/* WITHOUT GROUPS */}
 
-      <Root ref={ref}>
+      <h2>
+        Input Combobox ({combobox1.id}, {combobox1.dir})
+      </h2>
+
+      <Root use={combobox1}>
         <Trigger label="Reviewer" class={[scopeId, 'item']}>
-          <div class="item">
-            <img
-              src="https://picsum.photos/32/32"
-              alt="Jonh Doe at the last company's trip"
-            />
-            <h2>
-              Jonh Doe <small>Software developer</small>
-            </h2>
-          </div>
+          <img src="https://picsum.photos/32/32" alt="NodeJS" />
+          <h2>
+            Jonh Doe <small>Software developer</small>
+          </h2>
+          {combobox1.expanded ? (
+            <ChevronUp q:slot="button" />
+          ) : (
+            <ChevronDown q:slot="button" />
+          )}
         </Trigger>
 
         <Popover>
-          <Autocomplete label="Search reviewer" />
+          <Autocomplete label="Search a reviewer" />
           <Options label="Reviewers">
             <Option class={[scopeId, 'item']}>
               <img src="https://picsum.photos/32/32" alt="NodeJS" />
@@ -55,17 +61,16 @@ export default component$(() => {
 
       {/* WITH GROUPS */}
 
-      <Root ref={ref}>
+      <h2>
+        Group Combobox ({combobox2.id}, {combobox2.dir})
+      </h2>
+
+      <Root use={combobox2}>
         <Trigger label="Reviewer" class={[scopeId, 'item']}>
-          <div class="item">
-            <img
-              src="https://picsum.photos/32/32"
-              alt="Jonh Doe at the last company's trip"
-            />
-            <h2>
-              Jonh Doe <small>Software developer</small>
-            </h2>
-          </div>
+          <img src="https://picsum.photos/32/32" alt="NodeJS" />
+          <h2>
+            Jonh Doe <small>Software developer</small>
+          </h2>
         </Trigger>
 
         <Popover>
