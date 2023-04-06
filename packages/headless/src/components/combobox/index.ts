@@ -2,6 +2,7 @@ export { useCombobox } from './use/use-combobox';
 export { Autocomplete } from './autocomplete';
 export { Group } from './group';
 export { Groups } from './groups';
+export * as Icons from './icons';
 export { Option } from './option';
 export { Options } from './options';
 export { Popover } from './popover';

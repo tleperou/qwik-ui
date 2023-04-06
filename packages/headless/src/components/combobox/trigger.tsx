@@ -1,12 +1,15 @@
 import {
+  $,
   QwikIntrinsicElements,
   Slot,
   component$,
+  useContext,
   useId,
   useStylesScoped$,
 } from '@builder.io/qwik';
+import { rootContext } from './root';
 
-type Props = QwikIntrinsicElements['button'] & {
+type Props = QwikIntrinsicElements['div'] & {
   label: string;
   labelHidden?: boolean;
 };
@@ -30,9 +33,7 @@ export const Trigger = component$(
     }
   `);
 
-    const ariaLabel = !labelHidden
-      ? { 'aria-labelledby': `${id}__label` }
-      : { 'aria-label': label };
+    const ctx = useContext(rootContext);
 
     return (
       <>
@@ -41,17 +42,21 @@ export const Trigger = component$(
             {label}
           </label>
         )}
-        <div role="presentation">
+
+        <div {...props} id={`${id}__inner`} role="presentation">
           <button
-            {...props}
-            {...ariaLabel}
             role="combobox"
-            aria-expanded={false}
+            aria-labelledby={`${id}__label ${id}__inner`}
+            aria-expanded={ctx.expanded}
             aria-controls={`listbox`}
             aria-haspopup="listbox"
             id={id}
+            onClick$={$(() => {
+              ctx.expanded = !ctx.expanded;
+            })}
           ></button>
           <Slot />
+          <Slot name="button" />
         </div>
       </>
     );
