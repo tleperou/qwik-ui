@@ -1,4 +1,4 @@
-import { type Signal, useSignal, useId } from '@builder.io/qwik';
+import { type Signal, useSignal, useId, useTask$ } from '@builder.io/qwik';
 import { Items, useItems } from './use-items';
 import { Pages, usePages } from './use-pages';
 

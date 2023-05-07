@@ -5,6 +5,7 @@ import {
   useId,
   useSignal,
   useStylesScoped$,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import { Carousel, useCarousel, CarouselContext } from '@qwik-ui/headless';
 import styles from './example-netflix.css?inline';
@@ -29,7 +30,15 @@ const media = {
 export const ExampleNetflix = component$(() => {
   const { scopeId } = useStylesScoped$(styles);
   const items = useSignal([...new Array(10)]);
-  const carousel = useCarousel({ loop: false, transition: 350, startAt: 3 });
+  const carousel = useCarousel({ loop: true, transition: 350, startAt: 3 });
+
+  // Example purpose
+  // why not create a hook x))
+  useVisibleTask$(() => {
+    setInterval(() => {
+      carousel.items.next();
+    }, 2000);
+  });
 
   return (
     <>
